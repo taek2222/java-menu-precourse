@@ -14,4 +14,8 @@ public class Coach {
     public boolean isHateMenu(String menu) {
         return hateMenus.contains(menu);
     }
+
+    public String getName() {
+        return name;
+    }
 }
