@@ -1,6 +1,7 @@
 package menu.domain;
 
-import static menu.global.constant.ErrorMessage.OUF_OF_COACH_RANGE;
+import static menu.domain.Category.getCategoryNames;
+import static menu.domain.Category.getRandomCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import menu.domain.dto.CoachesResponse;
 
 public class Coaches {
 
+    private static final int MAXIMUM_CATEGORY_LENGTH = 5;
+    private static final int MAXIMUM_DUPLICATE_CATEGORY = 2;
     private final List<Coach> coaches;
     private final List<Category> categories;
 
@@ -18,14 +21,8 @@ public class Coaches {
     }
 
     public CoachesResponse createResponse() {
-        List<CoachResponse> coachResponses = coaches.stream()
-                .map(Coach::createResponse)
-                .toList();
-
-        return new CoachesResponse(
-                Category.getCategoryNames(categories),
-                coachResponses
-        );
+        List<CoachResponse> coachResponses = getCoachNames();
+        return new CoachesResponse(getCategoryNames(categories), coachResponses);
     }
 
     public void generateSuggestionFood() {
@@ -36,8 +33,8 @@ public class Coaches {
     }
 
     public void generateCategories() {
-        while (categories.size() < 5) {
-            Category category = Category.getRandomCategory();
+        while (categories.size() < MAXIMUM_CATEGORY_LENGTH) {
+            Category category = getRandomCategory();
             if (isOverDuplicateCategory(category)) {
                 continue;
             }
@@ -45,10 +42,16 @@ public class Coaches {
         }
     }
 
+    private List<CoachResponse> getCoachNames() {
+        return coaches.stream()
+                .map(Coach::createResponse)
+                .toList();
+    }
+
     private boolean isOverDuplicateCategory(Category randomCategory) {
         long count = categories.stream()
                 .filter(category -> category.equals(randomCategory))
                 .count();
-        return count >= 2;
+        return count >= MAXIMUM_DUPLICATE_CATEGORY;
     }
 }
