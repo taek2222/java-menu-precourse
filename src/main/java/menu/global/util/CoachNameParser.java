@@ -12,14 +12,16 @@ public class CoachNameParser {
     private static final String PATTERN_REGEX = "^([가-힣]*)$";
     private static final Pattern PATTERN = Pattern.compile(PATTERN_REGEX);
     private static final int EXPECTED_MATCHER_COUNT = 1;
+    private static final String DELIMITER = ",";
+    private static final int NAME_INDEX = 1;
 
     public static List<String> parseCoachNames(String input) {
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(input.split(DELIMITER))
                 .map(name -> {
                     Matcher matcher = PATTERN.matcher(name);
                     validateMatch(matcher);
 
-                    return matcher.group(1);
+                    return matcher.group(NAME_INDEX);
                 }).toList();
     }
 
