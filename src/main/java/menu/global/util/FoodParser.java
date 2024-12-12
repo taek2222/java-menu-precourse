@@ -10,6 +10,7 @@ import menu.domain.Food;
 
 public class FoodParser {
 
+    private static final Pattern INPUT_PATTERN = Pattern.compile("(^(,))|((,)$)");
     private static final String PATTERN_REGEX = "^([가-힣]*)$";
     private static final Pattern PATTERN = Pattern.compile(PATTERN_REGEX);
     private static final int EXPECTED_MATCHER_COUNT = 1;
@@ -17,6 +18,7 @@ public class FoodParser {
     private static final int FOOD_INDEX = 1;
 
     public static List<Food> parseFoods(String input) {
+        validateInput(input);
         if (input == null || input.isBlank()) {
             return List.of(Food.NONE);
         }
@@ -28,6 +30,12 @@ public class FoodParser {
                     String foodName = matcher.group(FOOD_INDEX);
                     return Food.findByName(foodName);
                 }).toList();
+    }
+
+    private static void validateInput(final String input) {
+        if (INPUT_PATTERN.matcher(input).find()) {
+            throw new IllegalArgumentException(INVALID_FOOD_FORMAT.get());
+        }
     }
 
     private static void validateMatch(Matcher matcher) {
