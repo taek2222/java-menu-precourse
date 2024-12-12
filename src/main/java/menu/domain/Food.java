@@ -1,5 +1,7 @@
 package menu.domain;
 
+import java.util.Arrays;
+
 public enum Food {
     GYUDON("규동", Category.JAPANESE),
     UDON("우동", Category.JAPANESE),
@@ -60,5 +62,10 @@ public enum Food {
         this.category = category;
     }
 
-
+    public static Food findByName(String name) {
+        return Arrays.stream(values())
+                .filter(food -> food.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
 }
