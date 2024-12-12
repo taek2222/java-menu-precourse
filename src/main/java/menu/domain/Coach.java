@@ -2,6 +2,7 @@ package menu.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import menu.domain.dto.CoachResponse;
 
 public class Coach {
 
@@ -15,6 +16,13 @@ public class Coach {
         this.name = name;
         this.notEats = notEats;
         this.eats = new ArrayList<>();
+    }
+
+    public CoachResponse createResponse() {
+        return new CoachResponse(
+                name,
+                Food.getFoodNames(eats)
+        );
     }
 
     public void generateEatsIfCategory(Category category) {

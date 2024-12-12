@@ -4,6 +4,7 @@ import java.util.List;
 import menu.domain.Coach;
 import menu.domain.Coaches;
 import menu.domain.Food;
+import menu.domain.dto.CoachesResponse;
 import menu.global.util.CoachNameParser;
 import menu.global.util.FoodParser;
 import menu.view.InputView;
@@ -19,13 +20,17 @@ public class MenuController {
     }
 
     public void run() {
-        outputView.printMenuStartMessage();
+        outputView.printMenuStart();
 
         String input = inputView.readCoachNames();
         List<String> names = CoachNameParser.parseCoachNames(input);
 
         Coaches coaches = createCoaches(names);
         coaches.generateCategories();
+        coaches.generateSuggestionFood();
+
+        CoachesResponse response = coaches.createResponse();
+        outputView.printMenuResult(response);
     }
 
     private Coach createCoach(final String name) {

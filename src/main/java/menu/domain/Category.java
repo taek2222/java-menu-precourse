@@ -2,20 +2,27 @@ package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
+import java.util.List;
 
 public enum Category {
+    NONE("none"),
     JAPANESE("일식"),
     KOREAN("한식"),
     CHINESE("중식"),
     ASIAN("아시안"),
-    WESTERN("양식"),
-    NONE("none")
+    WESTERN("양식")
     ;
 
     private final String name;
 
     Category(final String name) {
         this.name = name;
+    }
+
+    public static List<String> getCategoryNames(List<Category> categories) {
+        return categories.stream()
+                .map(category -> category.name)
+                .toList();
     }
 
     public static Category getRandomCategory() {

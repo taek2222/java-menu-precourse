@@ -9,6 +9,7 @@ public class InputView {
     public String readNotEatFood(String name) {
         System.out.printf(NEW_LINE.get());
         System.out.printf("%s(이)가 못 먹는 메뉴를 입력해 주세요.", name);
+        System.out.println();
 
         return Console.readLine();
     }

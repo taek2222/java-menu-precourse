@@ -2,6 +2,8 @@ package menu.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import menu.domain.dto.CoachResponse;
+import menu.domain.dto.CoachesResponse;
 
 public class Coaches {
 
@@ -14,6 +16,17 @@ public class Coaches {
         this.categories = new ArrayList<>();
     }
 
+    public CoachesResponse createResponse() {
+        List<CoachResponse> coachResponses = coaches.stream()
+                .map(Coach::createResponse)
+                .toList();
+
+        return new CoachesResponse(
+                Category.getCategoryNames(categories),
+                coachResponses
+        );
+    }
+
     public void generateSuggestionFood() {
         for (Category category : categories) {
             coaches.forEach(coach ->
@@ -22,7 +35,7 @@ public class Coaches {
     }
 
     public void generateCategories() {
-        while (categories.size() < 6) {
+        while (categories.size() < 5) {
             Category category = Category.getRandomCategory();
             if (isOverDuplicateCategory(category)) {
                 continue;

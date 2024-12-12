@@ -21,7 +21,7 @@ public enum Food {
     RAMEN("라멘", JAPANESE),
     OKONOMIYAKI("오코노미야끼", JAPANESE),
 
-    KIMBAP("감밥", KOREAN),
+    KIMBAP("김밥", KOREAN),
     KIMCHI_SOUP("김치찌개", KOREAN),
     SSAMBAP("쌈밥", KOREAN),
     SOY_BEAN_PASTE_SOUP("된장찌개", KOREAN),
@@ -42,9 +42,9 @@ public enum Food {
     RED_PEPPER_JAPCHAE("고추잡채", CHINESE),
 
     PAD_THAI("팟타이", ASIAN),
-    KHAO_POD("카오_팟", ASIAN),
+    KHAO_POD("카오 팟", ASIAN),
     NASI_GORENG("나시고렝", ASIAN),
-    PINEAPPLE_FRIED_RICE("파인애플_볶음밥", ASIAN),
+    PINEAPPLE_FRIED_RICE("파인애플 볶음밥", ASIAN),
     RICE_NOODLES("쌀국수", ASIAN),
     TOM_YUM_GOONG("똠얌꿍", ASIAN),
     BANH_MI("반미", ASIAN),
@@ -55,7 +55,7 @@ public enum Food {
     GRATIN("그라탱", WESTERN),
     GNOCCHI("뇨끼", WESTERN),
     QUICHE("끼슈", WESTERN),
-    FRENCH_TOAST("프렌치_토스트", WESTERN),
+    FRENCH_TOAST("프렌치 토스트", WESTERN),
     BAGUETTE("바게트", WESTERN),
     SPAGHETTI("스파게티", WESTERN),
     PIZZA("피자", WESTERN),
@@ -70,6 +70,12 @@ public enum Food {
     Food(final String name, final Category category) {
         this.name = name;
         this.category = category;
+    }
+
+    public static List<String> getFoodNames(List<Food> foods) {
+        return foods.stream()
+                .map(food -> food.name)
+                .toList();
     }
 
     public static Food getRandomFoodIfCategory(Category category) {
