@@ -1,6 +1,5 @@
 package menu.domain;
 
-import static menu.global.constant.ErrorMessage.OUF_OF_COACH_NAME_RANGE;
 import static menu.global.constant.ErrorMessage.OUF_OF_NOT_EATS_FOOD;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class Coach {
     public CoachResponse createResponse() {
         return new CoachResponse(
                 name,
-                Food.getFoodNames(eats)
+                Food.convertFoodNames(eats)
         );
     }
 

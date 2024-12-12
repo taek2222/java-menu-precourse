@@ -73,17 +73,14 @@ public enum Food {
         this.category = category;
     }
 
-    public static List<String> getFoodNames(List<Food> foods) {
+    public static List<String> convertFoodNames(List<Food> foods) {
         return foods.stream()
                 .map(food -> food.name)
                 .toList();
     }
 
-    public static Food getRandomFoodIfCategory(Category category) {
-        List<String> names = Arrays.stream(values())
-                .filter(food -> food.category == category)
-                .map(food -> food.name)
-                .toList();
+    public static Food getRandomFoodIfCategory(Category category) { // 네이밍이 이게 맞나
+        List<String> names = getFoodsIfCategory(category);
         String name = Randoms.shuffle(names).get(0);
         return findByName(name);
     }
@@ -93,5 +90,12 @@ public enum Food {
                 .filter(food -> food.name.equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_FOOD.get(name)));
+    }
+
+    private static List<String> getFoodsIfCategory(final Category category) {
+        return Arrays.stream(values())
+                .filter(food -> food.category == category)
+                .map(food -> food.name)
+                .toList();
     }
 }
