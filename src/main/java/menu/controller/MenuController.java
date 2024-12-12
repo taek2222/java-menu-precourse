@@ -25,6 +25,7 @@ public class MenuController {
         List<String> names = CoachNameParser.parseCoachNames(input);
 
         Coaches coaches = createCoaches(names);
+        coaches.generateCategories();
     }
 
     private Coach createCoach(final String name) {
