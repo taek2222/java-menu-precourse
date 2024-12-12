@@ -1,42 +1,34 @@
 package menu.controller;
 
-import static menu.global.util.CoachNameParser.parseCoachNames;
+import static menu.global.validation.CoachesValidator.validateCoaches;
 
 import java.util.List;
 import menu.domain.Coach;
 import menu.domain.Coaches;
 import menu.domain.Food;
-import menu.domain.dto.CoachesResponse;
-import menu.global.util.FoodParser;
-import menu.global.validation.CoachesValidator;
-import menu.view.InputView;
 import menu.view.OutputView;
 
 public class MenuController {
-    private final InputView inputView;
     private final OutputView outputView;
+    private final ViewHandler viewHandler;
 
-    public MenuController(InputView inputView, OutputView outputView) {
-        this.inputView = inputView;
+    public MenuController(OutputView outputView, final ViewHandler viewHandler) {
         this.outputView = outputView;
+        this.viewHandler = viewHandler;
     }
 
     public void run() {
-        displayMenuStart();
+        viewHandler.displayMenuStart();
         Coaches coaches = createCoaches();
 
         coaches.generateCategories();
         coaches.generateSuggestionFood();
 
-        displayMenuResult(coaches);
-    }
-
-    private void displayMenuStart() {
-        outputView.printMenuStart();
+        viewHandler.displayMenuResult(coaches);
     }
 
     private Coaches createCoaches() {
-        List<String> names = readAndParserCoachNames();
+        List<String> names = getNames();
         List<Coach> coaches = names.stream()
                 .map(this::createCoach)
                 .toList();
@@ -46,7 +38,7 @@ public class MenuController {
     private Coach createCoach(final String name) {
         while (true) {
             try {
-                List<Food> foods = readAndParserFoods(name);
+                List<Food> foods = viewHandler.readAndParserFoods(name);
                 return new Coach(name, foods);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
@@ -54,26 +46,15 @@ public class MenuController {
         }
     }
 
-    private List<String> readAndParserCoachNames() {
+    private List<String> getNames() {
         while (true) {
             try {
-                String input = inputView.readCoachNames();
-                List<String> names = parseCoachNames(input);
-                CoachesValidator.validateCoaches(names);
+                List<String> names = viewHandler.readAndParserCoachName();
+                validateCoaches(names);
                 return names;
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
-    }
-
-    private List<Food> readAndParserFoods(final String name) {
-        String input = inputView.readNotEatFood(name);
-        return FoodParser.parseFoods(input);
-    }
-
-    private void displayMenuResult(final Coaches coaches) {
-        CoachesResponse response = coaches.createResponse();
-        outputView.printMenuResult(response);
     }
 }
