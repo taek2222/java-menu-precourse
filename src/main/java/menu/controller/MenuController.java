@@ -1,7 +1,9 @@
 package menu.controller;
 
 import java.util.List;
-import menu.global.util.CoachNamesParser;
+import menu.domain.Food;
+import menu.global.util.CoachNameParser;
+import menu.global.util.FoodParser;
 import menu.view.InputView;
 import menu.view.OutputView;
 
@@ -18,6 +20,11 @@ public class MenuController {
         outputView.printMenuStartMessage();
 
         String input = inputView.readCoachNames();
-        List<String> names = CoachNamesParser.parseCoachNames(input);
+        List<String> names = CoachNameParser.parseCoachNames(input);
+
+        for (String name : names) {
+            String input1 = inputView.readNotEatFood(name);
+            List<Food> foods = FoodParser.parseFoods(input1);
+        }
     }
 }
