@@ -1,12 +1,14 @@
 package menu.controller;
 
+import static menu.global.util.CoachNameParser.parseCoachNames;
+
 import java.util.List;
 import menu.domain.Coach;
 import menu.domain.Coaches;
 import menu.domain.Food;
 import menu.domain.dto.CoachesResponse;
-import menu.global.util.CoachNameParser;
 import menu.global.util.FoodParser;
+import menu.global.validation.CoachesValidator;
 import menu.view.InputView;
 import menu.view.OutputView;
 
@@ -20,29 +22,58 @@ public class MenuController {
     }
 
     public void run() {
-        outputView.printMenuStart();
+        displayMenuStart();
+        Coaches coaches = createCoaches();
 
-        String input = inputView.readCoachNames();
-        List<String> names = CoachNameParser.parseCoachNames(input);
-
-        Coaches coaches = createCoaches(names);
         coaches.generateCategories();
         coaches.generateSuggestionFood();
 
-        CoachesResponse response = coaches.createResponse();
-        outputView.printMenuResult(response);
+        displayMenuResult(coaches);
+    }
+
+    private void displayMenuStart() {
+        outputView.printMenuStart();
     }
 
     private Coach createCoach(final String name) {
-        String input = inputView.readNotEatFood(name);
-        List<Food> foods = FoodParser.parseFoods(input);
+        List<Food> foods = readAndParserFoods(name);
         return new Coach(name, foods);
     }
 
-    private Coaches createCoaches(final List<String> names) {
+    private Coaches createCoaches() {
+        List<String> names = readAndParserCoachNames();
         List<Coach> coaches = names.stream()
                 .map(this::createCoach)
                 .toList();
         return new Coaches(coaches);
+    }
+
+    private List<String> readAndParserCoachNames() {
+        while(true) {
+            try {
+                String input = inputView.readCoachNames();
+                List<String> names = parseCoachNames(input);
+                CoachesValidator.validateCoaches(names);
+                return names;
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private List<Food> readAndParserFoods(final String name) {
+        while(true) {
+            try {
+                String input = inputView.readNotEatFood(name);
+                return FoodParser.parseFoods(input);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private void displayMenuResult(final Coaches coaches) {
+        CoachesResponse response = coaches.createResponse();
+        outputView.printMenuResult(response);
     }
 }
