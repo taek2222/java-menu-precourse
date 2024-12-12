@@ -62,8 +62,7 @@ public enum Food {
     PIZZA("피자", WESTERN),
     PANINI("파니니", WESTERN),
 
-    NONE("none", Category.NONE)
-    ;
+    NONE("none", Category.NONE);
 
     private final String name;
     private final Category category;

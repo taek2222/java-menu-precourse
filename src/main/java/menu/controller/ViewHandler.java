@@ -10,7 +10,7 @@ import menu.global.util.FoodParser;
 import menu.view.InputView;
 import menu.view.OutputView;
 
-public class ViewHandler {
+public class ViewHandler { // 이거 해도 되는건지
 
     private final InputView inputView;
     private final OutputView outputView;

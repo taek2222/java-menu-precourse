@@ -5,8 +5,7 @@ public enum MessageConstant {
 
     // Input
 
-    NEW_LINE(System.lineSeparator())
-    ;
+    NEW_LINE(System.lineSeparator());
 
     private final String message;
 

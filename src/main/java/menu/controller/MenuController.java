@@ -46,7 +46,7 @@ public class MenuController {
         }
     }
 
-    private List<String> getNames() {
+    private List<String> getNames() { // 네이밍 이게 맞나
         while (true) {
             try {
                 List<String> names = viewHandler.readAndParserCoachName();

@@ -12,8 +12,7 @@ public enum Category {
     KOREAN("한식"),
     CHINESE("중식"),
     ASIAN("아시안"),
-    WESTERN("양식")
-    ;
+    WESTERN("양식");
 
     private static final int JAPANESE_INDEX = 1;
     private static final int WESTERN_INDEX = 5;
