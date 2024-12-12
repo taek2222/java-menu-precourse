@@ -13,6 +13,10 @@ public class FoodParser {
     private static final int EXPECTED_MATCHER_COUNT = 1;
 
     public static List<Food> parseFoods(String input) {
+        if (input == null || input.isBlank()) {
+            return List.of(Food.NONE);
+        }
+
         return Arrays.stream(input.split(","))
                 .map(name -> {
                     Matcher matcher = PATTERN.matcher(name);

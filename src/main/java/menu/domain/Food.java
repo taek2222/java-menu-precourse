@@ -1,57 +1,65 @@
 package menu.domain;
 
+import static menu.domain.Category.ASIAN;
+import static menu.domain.Category.CHINESE;
+import static menu.domain.Category.JAPANESE;
+import static menu.domain.Category.KOREAN;
+import static menu.domain.Category.WESTERN;
+
 import java.util.Arrays;
 
 public enum Food {
-    GYUDON("규동", Category.JAPANESE),
-    UDON("우동", Category.JAPANESE),
-    MISO_SOUP("미소시루", Category.JAPANESE),
-    SUSHI("스시", Category.JAPANESE),
-    KATSUDON("가츠동", Category.JAPANESE),
-    ONIGIRI("오니기리", Category.JAPANESE),
-    HIGH_RICE("하이라이스", Category.JAPANESE),
-    RAMEN("라멘", Category.JAPANESE),
-    OKONOMIYAKI("오코노미야끼", Category.JAPANESE),
+    GYUDON("규동", JAPANESE),
+    UDON("우동", JAPANESE),
+    MISO_SOUP("미소시루", JAPANESE),
+    SUSHI("스시", JAPANESE),
+    KATSUDON("가츠동", JAPANESE),
+    ONIGIRI("오니기리", JAPANESE),
+    HIGH_RICE("하이라이스", JAPANESE),
+    RAMEN("라멘", JAPANESE),
+    OKONOMIYAKI("오코노미야끼", JAPANESE),
 
-    KIMBAP("감밥", Category.KOREAN),
-    KIMCHI_SOUP("김치찌개", Category.KOREAN),
-    SSAMBAP("쌈밥", Category.KOREAN),
-    SOY_BEAN_PASTE_SOUP("된장찌개", Category.KOREAN),
-    BIBIMBAP("비빔밥", Category.KOREAN),
-    KALGUKSU("칼국수", Category.KOREAN),
-    BULGOGI("불고기", Category.KOREAN),
-    TTEOKBOKKI("떡볶이", Category.KOREAN),
-    STIR_FRIED_PORK("제육볶음", Category.KOREAN),
+    KIMBAP("감밥", KOREAN),
+    KIMCHI_SOUP("김치찌개", KOREAN),
+    SSAMBAP("쌈밥", KOREAN),
+    SOY_BEAN_PASTE_SOUP("된장찌개", KOREAN),
+    BIBIMBAP("비빔밥", KOREAN),
+    KALGUKSU("칼국수", KOREAN),
+    BULGOGI("불고기", KOREAN),
+    TTEOKBOKKI("떡볶이", KOREAN),
+    STIR_FRIED_PORK("제육볶음", KOREAN),
 
-    KKANPUNGGI("깐풍기", Category.CHINESE),
-    FRIED_NOODLES("볶음면", Category.CHINESE),
-    DONGPO_MEAT("동파육", Category.CHINESE),
-    JJAJANGMYEON("짜장면", Category.CHINESE),
-    JJAMBBONG("짬뽕", Category.CHINESE),
-    MAPO_TOFU("마파두부", Category.CHINESE),
-    SWEET_AND_SOUR_PORK("탕수육", Category.CHINESE),
-    TOMATO_STIR_FRIED_EGG("토마토 달걀볶음", Category.CHINESE),
-    RED_PEPPER_JAPCHAE("고추잡채", Category.CHINESE),
+    KKANPUNGGI("깐풍기", CHINESE),
+    FRIED_NOODLES("볶음면", CHINESE),
+    DONGPO_MEAT("동파육", CHINESE),
+    JJAJANGMYEON("짜장면", CHINESE),
+    JJAMBBONG("짬뽕", CHINESE),
+    MAPO_TOFU("마파두부", CHINESE),
+    SWEET_AND_SOUR_PORK("탕수육", CHINESE),
+    TOMATO_STIR_FRIED_EGG("토마토 달걀볶음", CHINESE),
+    RED_PEPPER_JAPCHAE("고추잡채", CHINESE),
 
-    PAD_THAI("팟타이", Category.ASIAN),
-    KHAO_POD("카오_팟", Category.ASIAN),
-    NASI_GORENG("나시고렝", Category.ASIAN),
-    PINEAPPLE_FRIED_RICE("파인애플_볶음밥", Category.ASIAN),
-    RICE_NOODLES("쌀국수", Category.ASIAN),
-    TOM_YUM_GOONG("똠얌꿍", Category.ASIAN),
-    BANH_MI("반미", Category.ASIAN),
-    VIETNAMESE_SPRING_ROLL("월남쌈", Category.ASIAN),
-    BUNJJA("분짜", Category.ASIAN),
+    PAD_THAI("팟타이", ASIAN),
+    KHAO_POD("카오_팟", ASIAN),
+    NASI_GORENG("나시고렝", ASIAN),
+    PINEAPPLE_FRIED_RICE("파인애플_볶음밥", ASIAN),
+    RICE_NOODLES("쌀국수", ASIAN),
+    TOM_YUM_GOONG("똠얌꿍", ASIAN),
+    BANH_MI("반미", ASIAN),
+    VIETNAMESE_SPRING_ROLL("월남쌈", ASIAN),
+    BUNJJA("분짜", ASIAN),
 
-    LASAGNA("라자냐", Category.WESTERN),
-    GRATIN("그라탱", Category.WESTERN),
-    GNOCCHI("뇨끼", Category.WESTERN),
-    QUICHE("끼슈", Category.WESTERN),
-    FRENCH_TOAST("프렌치_토스트", Category.WESTERN),
-    BAGUETTE("바게트", Category.WESTERN),
-    SPAGHETTI("스파게티", Category.WESTERN),
-    PIZZA("피자", Category.WESTERN),
-    PANINI("파니니", Category.WESTERN)
+    LASAGNA("라자냐", WESTERN),
+    GRATIN("그라탱", WESTERN),
+    GNOCCHI("뇨끼", WESTERN),
+    QUICHE("끼슈", WESTERN),
+    FRENCH_TOAST("프렌치_토스트", WESTERN),
+    BAGUETTE("바게트", WESTERN),
+    SPAGHETTI("스파게티", WESTERN),
+    PIZZA("피자", WESTERN),
+    PANINI("파니니", WESTERN),
+
+    NONE("none", Category.NONE)
     ;
 
     private final String name;

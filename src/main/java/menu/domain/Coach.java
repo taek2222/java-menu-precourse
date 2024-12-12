@@ -5,7 +5,7 @@ import java.util.List;
 public class Coach {
 
     private final String name;
-    private final List<Food> notEats;
+    private final List<Food> notEats; // 없는 경우 None 처리 중임
 
     public Coach(final String name, final List<Food> notEats) {
         validateName(name);
