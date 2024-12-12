@@ -1,5 +1,8 @@
 package menu.domain;
 
+import static menu.global.constant.ErrorMessage.OUF_OF_COACH_NAME_RANGE;
+import static menu.global.constant.ErrorMessage.OUF_OF_NOT_EATS_FOOD;
+
 import java.util.ArrayList;
 import java.util.List;
 import menu.domain.dto.CoachResponse;
@@ -37,14 +40,14 @@ public class Coach {
 
     private void validateNotEats(List<Food> eats) {
         if (eats.size() > 2) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OUF_OF_NOT_EATS_FOOD.get());
         }
     }
 
     private void validateName(String name) {
         int length = name.length();
         if (length < 2 || length > 5) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OUF_OF_COACH_NAME_RANGE.get());
         }
     }
 }

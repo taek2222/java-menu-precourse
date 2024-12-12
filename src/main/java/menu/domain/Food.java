@@ -5,6 +5,7 @@ import static menu.domain.Category.CHINESE;
 import static menu.domain.Category.JAPANESE;
 import static menu.domain.Category.KOREAN;
 import static menu.domain.Category.WESTERN;
+import static menu.global.constant.ErrorMessage.NOT_FOUND_FOOD;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
@@ -91,6 +92,6 @@ public enum Food {
         return Arrays.stream(values())
                 .filter(food -> food.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_FOOD.get(name)));
     }
 }

@@ -1,5 +1,7 @@
 package menu.domain;
 
+import static menu.global.constant.ErrorMessage.OUF_OF_COACH_RANGE;
+
 import java.util.ArrayList;
 import java.util.List;
 import menu.domain.dto.CoachResponse;
@@ -54,7 +56,7 @@ public class Coaches {
     private void validateCoachesSize(final List<Coach> coaches) {
         int size = coaches.size();
         if (size < 2 || size > 5) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OUF_OF_COACH_RANGE.get());
         }
     }
 }

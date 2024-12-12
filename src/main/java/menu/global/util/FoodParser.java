@@ -1,5 +1,7 @@
 package menu.global.util;
 
+import static menu.global.constant.ErrorMessage.INVALID_FOOD_FORMAT;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,7 +30,7 @@ public class FoodParser {
 
     private static void validateMatch(Matcher matcher) {
         if (!matcher.find() || matcher.groupCount() != EXPECTED_MATCHER_COUNT) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_FOOD_FORMAT.get());
         }
     }
 }
