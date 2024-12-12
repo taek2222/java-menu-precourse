@@ -29,7 +29,7 @@ public class Coach {
     public void generateEatsIfCategory(Category category) {
         while (true) {
             Food food = Food.getRandomFoodIfCategory(category);
-            if (!notEats.contains(food) && !eats.contains(food)) {
+            if (isAddPossibleFood(food)) {
                 eats.add(food);
                 break;
             }
@@ -40,5 +40,9 @@ public class Coach {
         if (eats.size() > 2) {
             throw new IllegalArgumentException(OUF_OF_NOT_EATS_FOOD.get());
         }
+    }
+
+    private boolean isAddPossibleFood(final Food food) {
+        return !notEats.contains(food) && !eats.contains(food);
     }
 }
