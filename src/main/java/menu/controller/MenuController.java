@@ -1,5 +1,7 @@
 package menu.controller;
 
+import java.util.List;
+import menu.global.util.CoachNamesParser;
 import menu.view.InputView;
 import menu.view.OutputView;
 
@@ -14,5 +16,8 @@ public class MenuController {
 
     public void run() {
         outputView.printMenuStartMessage();
+
+        String input = inputView.readCoachNames();
+        List<String> names = CoachNamesParser.parseCoachNames(input);
     }
 }
