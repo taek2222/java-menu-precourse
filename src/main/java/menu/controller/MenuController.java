@@ -1,6 +1,7 @@
 package menu.controller;
 
 import java.util.List;
+import menu.domain.Coach;
 import menu.domain.Food;
 import menu.global.util.CoachNameParser;
 import menu.global.util.FoodParser;
@@ -23,8 +24,13 @@ public class MenuController {
         List<String> names = CoachNameParser.parseCoachNames(input);
 
         for (String name : names) {
-            String input1 = inputView.readNotEatFood(name);
-            List<Food> foods = FoodParser.parseFoods(input1);
+            createCoach(name);
         }
+    }
+
+    private Coach createCoach(final String name) {
+        String input = inputView.readNotEatFood(name);
+        List<Food> foods = FoodParser.parseFoods(input);
+        return new Coach(name, foods);
     }
 }
