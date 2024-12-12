@@ -1,6 +1,12 @@
 package menu.view;
 
 import static menu.global.constant.MessageConstant.NEW_LINE;
+import static menu.global.constant.MessageConstant.OUTPUT_CATEGORIES;
+import static menu.global.constant.MessageConstant.OUTPUT_COACH_MENU;
+import static menu.global.constant.MessageConstant.OUTPUT_DAY_OF_THE_WEEK;
+import static menu.global.constant.MessageConstant.OUTPUT_MENU_RESULT;
+import static menu.global.constant.MessageConstant.OUTPUT_MENU_START;
+import static menu.global.constant.MessageConstant.OUTPUT_SUCCESS_RESULT;
 
 import java.util.List;
 import menu.domain.dto.CoachResponse;
@@ -8,27 +14,40 @@ import menu.domain.dto.CoachesResponse;
 
 public class OutputView {
 
-    public void printMenuResult(CoachesResponse response) {
-        System.out.println();
-        System.out.println("메뉴 추천 결과입니다.");
-        System.out.println("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
-        List<String> categories = response.categories();
-        System.out.printf("[ 카테고리 | %s ]", String.join(" | ", categories));
-        System.out.println();
+    private static final String DELIMITER_EAT = " | ";
+    private static final String DELIMITER_CATEGORY = " | ";
 
-        response.coachResponses()
-                .forEach(this::printCoachMenu);
-        System.out.println(NEW_LINE.get() + "추천을 완료했습니다.");
+    public void printMenuStart() {
+        System.out.println(OUTPUT_MENU_START.get());
+    }
+
+    public void printMenuResult(CoachesResponse response) {
+        System.out.printf(NEW_LINE.get());
+        System.out.println(OUTPUT_MENU_RESULT.get());
+
+        printDayOfTheWeek();
+        printCategories(response.categories());
+        response.coachResponses().forEach(this::printCoachMenu);
+        printSuccessResult();
+    }
+
+    private void printDayOfTheWeek() {
+        System.out.println(OUTPUT_DAY_OF_THE_WEEK.get());
+    }
+
+    private void printCategories(final List<String> categories) {
+        String joinCategories = String.join(DELIMITER_CATEGORY, categories);
+        System.out.println(OUTPUT_CATEGORIES.get(joinCategories));
     }
 
     private void printCoachMenu(CoachResponse response) {
-        List<String> eats = response.eats();
-        System.out.printf("[ %s | %s ]", response.name(), String.join(" | ", eats));
-        System.out.println();
+        String joinEats = String.join(DELIMITER_EAT, response.eats());
+        System.out.println(OUTPUT_COACH_MENU.get(response.name(), joinEats));
     }
 
-    public void printMenuStart() {
-        System.out.println("점심 메뉴 추천을 시작합니다.");
+    private void printSuccessResult() {
+        System.out.printf(NEW_LINE.get());
+        System.out.println(OUTPUT_SUCCESS_RESULT.get());
     }
 
     public void printErrorMessage(String message) {

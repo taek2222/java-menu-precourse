@@ -1,21 +1,22 @@
 package menu.view;
 
+import static menu.global.constant.MessageConstant.INPUT_COACH_NAMES;
+import static menu.global.constant.MessageConstant.INPUT_NOT_EAT_FOOD;
 import static menu.global.constant.MessageConstant.NEW_LINE;
 
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
 
-    public String readNotEatFood(String name) {
+    public String readCoachNames() {
         System.out.printf(NEW_LINE.get());
-        System.out.printf("%s(이)가 못 먹는 메뉴를 입력해 주세요.", name);
-        System.out.println();
-
+        System.out.println(INPUT_COACH_NAMES.get());
         return Console.readLine();
     }
 
-    public String readCoachNames() {
-        System.out.println(NEW_LINE.get() + "코치의 이름을 입력해 주세요. (, 로 구분)");
+    public String readNotEatFood(String name) {
+        System.out.printf(NEW_LINE.get());
+        System.out.println(INPUT_NOT_EAT_FOOD.get(name));
         return Console.readLine();
     }
 }
