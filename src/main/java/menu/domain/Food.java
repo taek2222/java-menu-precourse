@@ -6,7 +6,9 @@ import static menu.domain.Category.JAPANESE;
 import static menu.domain.Category.KOREAN;
 import static menu.domain.Category.WESTERN;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
+import java.util.List;
 
 public enum Food {
     GYUDON("규동", JAPANESE),
@@ -68,6 +70,15 @@ public enum Food {
     Food(final String name, final Category category) {
         this.name = name;
         this.category = category;
+    }
+
+    public static Food getRandomFoodIfCategory(Category category) {
+        List<String> names = Arrays.stream(values())
+                .filter(food -> food.category == category)
+                .map(food -> food.name)
+                .toList();
+        String name = Randoms.shuffle(names).get(0);
+        return findByName(name);
     }
 
     public static Food findByName(String name) {
