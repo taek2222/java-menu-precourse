@@ -35,11 +35,6 @@ public class MenuController {
         outputView.printMenuStart();
     }
 
-    private Coach createCoach(final String name) {
-        List<Food> foods = readAndParserFoods(name);
-        return new Coach(name, foods);
-    }
-
     private Coaches createCoaches() {
         List<String> names = readAndParserCoachNames();
         List<Coach> coaches = names.stream()
@@ -48,8 +43,19 @@ public class MenuController {
         return new Coaches(coaches);
     }
 
+    private Coach createCoach(final String name) {
+        while (true) {
+            try {
+                List<Food> foods = readAndParserFoods(name);
+                return new Coach(name, foods);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
     private List<String> readAndParserCoachNames() {
-        while(true) {
+        while (true) {
             try {
                 String input = inputView.readCoachNames();
                 List<String> names = parseCoachNames(input);
@@ -62,14 +68,8 @@ public class MenuController {
     }
 
     private List<Food> readAndParserFoods(final String name) {
-        while(true) {
-            try {
-                String input = inputView.readNotEatFood(name);
-                return FoodParser.parseFoods(input);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        String input = inputView.readNotEatFood(name);
+        return FoodParser.parseFoods(input);
     }
 
     private void displayMenuResult(final Coaches coaches) {
