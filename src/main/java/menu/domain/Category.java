@@ -1,5 +1,7 @@
 package menu.domain;
 
+import static menu.global.constant.ErrorMessage.NOT_FOUND_CATEGORY;
+
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +14,9 @@ public enum Category {
     ASIAN("아시안"),
     WESTERN("양식")
     ;
+
+    private static final int JAPANESE_INDEX = 1;
+    private static final int WESTERN_INDEX = 5;
 
     private final String name;
 
@@ -26,10 +31,10 @@ public enum Category {
     }
 
     public static Category getRandomCategory() {
-        int number = Randoms.pickNumberInRange(1, 5);
+        int number = Randoms.pickNumberInRange(JAPANESE_INDEX, WESTERN_INDEX);
         return Arrays.stream(values())
                 .filter(category -> category.ordinal() == number)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("서버 에러 발생 : 카테고리 코드가 잘못 설정되어 있습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_CATEGORY.get()));
     }
 }
