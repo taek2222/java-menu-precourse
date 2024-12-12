@@ -2,6 +2,7 @@ package menu.controller;
 
 import java.util.List;
 import menu.domain.Coach;
+import menu.domain.Coaches;
 import menu.domain.Food;
 import menu.global.util.CoachNameParser;
 import menu.global.util.FoodParser;
@@ -23,14 +24,19 @@ public class MenuController {
         String input = inputView.readCoachNames();
         List<String> names = CoachNameParser.parseCoachNames(input);
 
-        for (String name : names) {
-            createCoach(name);
-        }
+        Coaches coaches = createCoaches(names);
     }
 
     private Coach createCoach(final String name) {
         String input = inputView.readNotEatFood(name);
         List<Food> foods = FoodParser.parseFoods(input);
         return new Coach(name, foods);
+    }
+
+    private Coaches createCoaches(final List<String> names) {
+        List<Coach> coaches = names.stream()
+                .map(this::createCoach)
+                .toList();
+        return new Coaches(coaches);
     }
 }
