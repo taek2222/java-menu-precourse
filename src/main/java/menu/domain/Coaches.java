@@ -14,6 +14,13 @@ public class Coaches {
         this.categories = new ArrayList<>();
     }
 
+    public void generateSuggestionFood() {
+        for (Category category : categories) {
+            coaches.forEach(coach ->
+                    coach.generateEatsIfCategory(category));
+        }
+    }
+
     public void generateCategories() {
         while (categories.size() < 6) {
             Category category = Category.getRandomCategory();

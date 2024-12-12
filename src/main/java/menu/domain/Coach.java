@@ -17,7 +17,7 @@ public class Coach {
         this.eats = new ArrayList<>();
     }
 
-    private void generateEatsIfCategory(Category category) {
+    public void generateEatsIfCategory(Category category) {
         while (true) {
             Food food = Food.getRandomFoodIfCategory(category);
             if (!notEats.contains(food) && !eats.contains(food)) {
